@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端滑屏案例</title>
+    <!-- IMPORT CSS & REM -->
+    <!-- <link rel="stylesheet/less" href="css/index.less">
+    <script src="js/less-2.5.3.min.js"></script> -->
+    <script src="css/index.min.css"></script>
+    <script>
+        ~function () {
+            let evt = 'onorientationchange' in window?'orientationchange':'resize';
+            //orientationchange：屏幕切换事件
+            function computed() {
+                let HTML = document.documentElement,
+                //deviceW:设备宽度；designW：设计稿宽度
+                    deviceW = HTML.clientWidth,
+                    designW = 750,
+                    ratio = deviceW / designW * 100;
+                if (deviceW >= designW) ratio = 100;
+                //当设备宽度>设计稿宽度时，以设计稿宽度设为最大宽度
+                HTML.style.fontSize = ratio + 'px';
+            }
+            computed();
+            window.addEventListener(evt,computed);
+            //当屏幕切换时重新执行REM计算函数
+        }();
+    </script>
+    <!-- 下面的js文件会帮助我们把css3中需要加前缀的样式全部加成5套 -->
+    <script src="js/prefixfree.min.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <!-- 魔方区域 -->
+        <section class="cubeBox">
+            <ul class="cube">
+                <!-- 可以通过快捷提示写 -->
+                <li><img src="images/zf_cube1.png" alt=""></li>
+                <li><img src="images/zf_cube2.png" alt=""></li>
+                <li><img src="images/zf_cube3.png" alt=""></li>
+                <li><img src="images/zf_cube4.png" alt=""></li>
+                <li><img src="images/zf_cube5.png" alt=""></li>
+                <li><img src="images/zf_cube6.png" alt=""></li>
+            </ul>
+            <span class="tip"></span>
+        </section>
+
+        <!-- 滑屏区域 -->
+        <section class="swiperBox">
+            <a href="javascript:;" class="returnBox"></a>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide page1">
+                        <dl class="baseInfo">
+                            <dt>自我介绍</dt>
+                            <dd><em>01</em><p>姓名:a</p></dd>
+                            <dd><em>02</em><p>性别:b</p></dd>
+                            <dd><em>03</em><p>年龄:c</p></dd>
+                            <dd><em>04</em><p>户籍:d</p></dd>
+                            <dd><em>05</em><p>工作年限:e</p></dd>
+                            <dd><em>06</em><p>学历:f</p></dd>
+                            <dd><em>07</em><p>邮箱:g</p></dd>
+                            <dd><em>08</em><p>电话:h</p></dd>
+                            <dd><em>09</em><p>兴趣爱好:i</p></dd>
+                            <dd><em>10</em><p>特长:JAVASCRIPT/NODE/AJAX/JQUERY/VUE/REACT...</p></dd>
+                        </dl>
+                    </div>
+                    <div class="swiper-slide page2">
+                        <h3>课程体系</h3>
+                        <img src="images/zf_course1.png" alt="">
+                        <img src="images/zf_course2.png" alt="">
+                        <img src="images/zf_course3.png" alt="">
+                        <img src="images/zf_course4.png" alt="">
+                        <img src="images/zf_course5.png" alt="">
+                        <img src="images/zf_course6.png" alt="">
+                        <img src="images/zf_course.png" alt="">
+                    </div>
+                    <div class="swiper-slide page3">
+                        <img src="images/zf_teacherTip.png" alt="" class="title">
+                    </div>
+                    <div class="swiper-slide page4">4</div>
+                    <div class="swiper-slide page5">5</div>
+                    <div class="swiper-slide page6">6</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 音乐区域 -->
+        <section class="musicBox">
+            <!-- audio支持的格式：mp3/ogg/wav/m3u8直播流 
+            preload:默认值auto，打开页面音频文件直接加载。none禁止加载
+            -->
+            <audio class="musicAudio" src="audio/music.mp3" loop preload="none"></audio>
+            <a href="javascript:;" class="musicIcon"></a>
+        </section>
+    </main>
+
+    <!-- IMPORT JS -->
+    <script src="js/zepto.min.js"></script>
+    <!-- zepto:移动端JQ类库 -->
+    <script src="js/swiper.min.js"></script>
+    <script src="js/makisu.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
+
+
+<!-- 
+    移动端的手机端联调
+    1.在本地建立WEB服务器，让手机和电脑保持在同一个局域网中，这样在手机端就可以访问电脑中的项目了（PC端关闭防火墙）
+    2.安装Hbuilder，这样也可以联调
+    3.把项目部署到服务器（测试服务器）上进行测试
+    4.还有一些其他的工具（MAC的偏多）
+    ...
+
+
+
+    上传到服务器得到固定网址：
+    1.首先在终端将less文件编译为css文件(发布的时候导入的不是less文件而是写好的css)
+        在终端拖入指定的文件夹，在指定文件夹下输入lessc xxx.less xxx.css  回车进行编译
+    2.html文件中注释掉之前引入的less文件和less.min.js文件，重新引入刚才生成的css文件
+    3.登陆github——sign in
+        3.1左侧"new"按键（绿色）
+        3.2输入"命名"
+        3.3写"描述"
+        3.4点击最下面"create repository"（绿色）
+        3.5右上角settings找到"GitHub Pages---Choose a theme"（选择一个模版），[接下来一路下一步]选择"select theme"，接下来选择"Commit changes"
+        3.6选择完跳转完页面以后点击刚才的文件命名，会看到仓库中已经有文件了。点击右侧"clone or download",把仓库克隆到本地一份
+        3.7打开终端，cd 拖入指定文件夹，输入git clone 粘贴刚才复制的地址，回车。就会看到指定文件夹下有刚才新建的仓库（命名相同的文件夹，同时还有隐藏文件.git）
+        
+    
+ -->
